@@ -1,0 +1,8 @@
+User Guide and Manual:
+
+The application uses a Command Line Interface and an Optional Graphical User Interface
+To run the program, open a terminal such as Command Prompt or Git Bash
+
+1- Set the directory to the path of the program using "cd" command
+2- Type ./fileApplication.exe in your terminal
+

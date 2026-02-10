@@ -1,0 +1,200 @@
+Capstone Project Course 2:
+
+External library used: Nlohmann JSON
+
+
+The use of Generative AI includes:
+
+1- Implementation and Debugging of the functions: readFile,writeFile, parseData, calculateStatistics and FilterRecords
+2- Running proper test cases with a testCases function that includes Normal data, edge cases and boundary data
+3- Debugging every line, identifying missing preprocessor directives like <cmath> and <functional>
+4- Generating helpful comments in the program
+
+Tools Used: ChatGPT and GitHub Copilot
+
+1. Overview
+
+This application is a C++-based data processing system developed as part of a capstone project. 
+Its purpose is to read structured data from external files, validate the data, 
+transform it into program-friendly structures, and provide multiple data analysis and 
+processing operations. The application emphasizes robustness, modularity, and user-friendliness.
+
+The system supports structured input data, performs validation to ensure correctness and completeness,
+ and enables users to interactively analyze and process the data either through a command-line interface
+or an optional graphical interface.
+
+2. Supported Data Formats
+2.1 JSON Format (Primary)
+
+The primary supported input format is JSON. The application expects a JSON file containing an array of objects. Each object represents a single data record.
+
+Required Fields per Record
+
+Each JSON object must contain the following fields:
+
+id (string)
+
+age (integer, non-negative)
+
+value (number)
+
+name (string, non-empty)
+
+category (string)
+
+Example JSON Input
+[
+  {
+    "id": "1",
+    "age": 25,
+    "value": 100.5,
+    "name": "Alice",
+    "category": "TypeA"
+  },
+  {
+    "id": "2",
+    "age": 30,
+    "value": 200.75,
+    "name": "Bob",
+    "category": "TypeB"
+  }
+]
+
+If the JSON structure is invalid, missing required fields, or contains incorrect data types, the application raises an error and prevents corrupted data from entering the system.
+
+3. Internal Data Representation
+
+After parsing, each record is stored using the following internal data structure:
+
+DataRecord Structure
+
+id: Unique identifier
+
+age: Integer attribute used for filtering and validation
+
+value: Numeric attribute used for statistical analysis
+
+name: Descriptive text field
+
+category: Categorical field used for grouping and aggregation
+
+All records are stored in a std::vector<DataRecord>, enabling efficient traversal, filtering, and transformation.
+
+4. Data Processing Pipeline
+
+The application follows a clear and structured data processing pipeline:
+
+File Input
+
+Reads raw file content from disk.
+
+Handles file I/O errors safely.
+
+Parsing
+
+Converts raw JSON text into structured JSON objects using the nlohmann::json library.
+
+Validation
+
+Ensures correct JSON format.
+
+Confirms required fields exist.
+
+Validates data types.
+
+Applies logical checks (e.g., non-negative age, non-empty name).
+
+Transformation
+
+Converts validated JSON objects into DataRecord structures.
+
+Processing & Analysis
+
+Applies user-selected operations such as statistics, filtering, normalization, and aggregation.
+
+5. Data Processing Operations
+5.1 Statistical Analysis
+
+The application computes descriptive statistics on the value field of all records, including:
+
+Mean
+
+Median
+
+Mode
+
+Range
+
+Standard deviation
+
+These calculations help users understand the distribution and spread of numeric data within the dataset.
+
+5.2 Filtering Operations
+
+Filtering allows users to extract subsets of data based on custom conditions. Examples include:
+
+Filtering records by age thresholds
+
+Filtering records by numeric value
+
+Filtering is implemented using predicate functions, enabling flexible and reusable filtering logic.
+
+5.3 Data Transformation
+
+Data transformation functions modify existing data to improve consistency or usability.
+ Supported transformations include:
+
+Normalizing category names to uppercase
+
+Scaling or adjusting numerical values (optional extension)
+
+Transformations operate directly on validated records and maintain data integrity.
+
+5.4 Aggregation by Category
+
+Aggregation groups records by their category field and computes summary statistics per group. 
+Currently supported aggregation includes:
+
+Total value per category
+
+This operation provides high-level insights by summarizing data rather than examining individual records.
+
+6. Error Handling and Robustness
+
+The application employs strict error handling to ensure reliability:
+
+Invalid file access triggers runtime errors.
+
+Malformed JSON data is rejected.
+
+Missing or incorrect fields are detected early.
+
+Logical data errors prevent further processing.
+
+This approach ensures that only valid and meaningful data is processed.
+
+7. Testing Strategy
+
+A comprehensive test suite validates the correctness and robustness of the application. Tests include:
+
+Normal data parsing
+
+Boundary cases (single record, zero values)
+
+Edge cases (large values, duplicate values)
+
+Filtering and aggregation correctness
+
+Error handling for invalid input
+
+This testing strategy confirms that the 
+application behaves correctly under both normal and exceptional conditions.
+
+8. Summary
+
+This data processing application provides a reliable and 
+extensible framework for structured data analysis in C++. 
+Through strict validation, modular processing functions, and clear data flow,
+ the system ensures correctness, usability, and maintainability. 
+ The design supports future extensions such as additional file formats, 
+ advanced analytics, and graphical user interfaces.
